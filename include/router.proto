@@ -1,0 +1,22 @@
+
+package router;
+
+message RegisterSvrReq
+{
+    required uint32 SvrID = 1;    // 注册的服务器id
+}
+
+message RegisterSvrRsp
+{
+    required int32 Ret = 1;     // 0 成功，其他失败
+}
+
+message HeartbeatReq
+{
+    required int32 SvrID = 1;
+}
+
+message HeartbeatRsp
+{
+    required int32 Ret = 1;
+}

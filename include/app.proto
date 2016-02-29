@@ -1,0 +1,16 @@
+
+
+package app;
+
+message DataType
+{
+    required int32 kk = 1;
+    required string ss = 2;
+}
+
+message MyData
+{
+    required int32 data1 = 1;
+    required string data2 = 2;
+    required DataType data3 = 3;
+}

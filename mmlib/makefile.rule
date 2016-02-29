@@ -1,0 +1,39 @@
+CC = gcc
+CPP = g++
+CXX = g++
+AR = ar -csq
+RM = rm -f
+
+CPPFLAGS = -Wall -g -D_GNU_SOURCE -DLINUX -fPIC -lz
+LDFLAGS = 
+
+CPPFLAGS += -I$(MMLIB_HOME)
+	
+SOURCES		= $(wildcard *.c) $(wildcard *.cc) $(wildcard *.cpp) $(wildcard *.proto)
+NO_DIR_OBJS	= $(patsubst %.proto,%.pb.o,$(patsubst %.cpp,%.o,$(patsubst %.cc,%.o,$(patsubst %.c,%.o,$(SOURCES)))))
+OBJS		= $(addprefix $(MMLIB_OBJ_DIR)/, $(NO_DIR_OBJS))
+
+.SUFFIXES: .cpp .cc .c .o
+.PHONY: all clean
+
+$(MMLIB_OBJ_DIR)/%.o: %.cpp
+	@echo "Compiling $<"
+	@echo "$(CPP) $(CPPFLAGS) -c $< -o $@"
+	$(CPP) $(CPPFLAGS) -c $< -o $@
+	@echo "Done"
+	@echo
+
+$(MMLIB_OBJ_DIR)/%.o: %.cc
+	@echo "Compiling $<"
+	@echo "$(CPP) $(CPPFLAGS) -c $< -o $@"
+	$(CPP) $(CPPFLAGS) -c $< -o $@
+	@echo "Done"
+	@echo
+
+$(MMLIB_OBJ_DIR)/%.o: %.c
+	@echo "Compiling $<"
+	@echo "$(CC) $(CPPFLAGS) -c $< -o $@"
+	$(CC) $(CPPFLAGS) -c $< -o $@
+	@echo "Done"
+	@echo
+

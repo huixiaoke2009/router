@@ -1,0 +1,6 @@
+include $(MMLIB_HOME)/makefile.rule
+
+all:$(OBJS)
+
+clean:
+	-$(RM) $(OBJS) $(DEPS) *.o *.d

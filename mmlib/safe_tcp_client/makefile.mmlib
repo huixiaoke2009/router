@@ -1,0 +1,8 @@
+include $(MMLIB_HOME)/makefile.rule
+
+CPPFLAGS += -fno-strict-aliasing
+
+all:$(OBJS)
+
+clean:
+	-$(RM) $(OBJS) $(DEPS) *.o *.d

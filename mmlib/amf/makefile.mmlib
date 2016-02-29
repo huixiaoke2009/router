@@ -1,0 +1,9 @@
+include $(MMLIB_HOME)/makefile.rule
+
+#OBJS = common.o variant.o iobuffer.o amf3serializer.o 
+CPPFLAGS += -pipe  -D_NEW_LIC -D_REENTRANT 
+
+all:$(OBJS)
+
+clean:
+	$(RM) $(OBJS) $(DEPS) *.o *.d

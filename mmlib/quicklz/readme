@@ -1,0 +1,20 @@
+int main(int argc, char* argv[])
+{
+    char src[102400] = "slfdjsldjflksjdflkasjdldfnls sdf 4s5d4f 2s4df 2sdf2s1 2321re21r2w1erf21s 1dfs 1fs1 s0df2301521342!#@$@#sfljlsjfdlsjdjdlfjgljdfljsldfjglssldfjlsjdfljklkj*(*&*&*^&^%%^%^%^%^$$GJhfkdhsfkhdkhksdhfkhsdfsdf)";
+	char dst[102400];
+	char src2[102400];
+	memset(dst, 0x0, sizeof(dst));
+	memset(src2, 0x0, sizeof(src2));
+	printf("src_len=%d, dst_len=%d, src2_len=%d\n", strlen(src), strlen(dst), strlen(src2));
+	char state_compress[sizeof(qlz_state_compress)];
+	char state_decompress[sizeof(qlz_state_decompress)];
+	//qlz_state_compress *state_compress = (qlz_state_compress *)malloc(sizeof(qlz_state_compress));
+    size_t len = strlen(src) + 1;
+    //len为要压缩buf的长度
+	qlz_compress(src, dst, len, (qlz_state_compress*)state_compress);
+	printf("src_len=%d, dst_len=%d, src2_len=%d\n", strlen(src), strlen(dst), strlen(src2));
+	//qlz_state_decompress *state_decompress = (qlz_state_decompress *)malloc(sizeof(qlz_state_decompress));
+	qlz_decompress(dst, src2, (qlz_state_decompress *)state_decompress);
+	printf("src2=%s\n", src2);
+	printf("src_len=%d, dst_len=%d, src2_len=%d\n", strlen(src), strlen(dst), strlen(src2));
+}

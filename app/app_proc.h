@@ -20,7 +20,7 @@ class CApp
     private:
         
     private:
-        int m_DstID;
+        int m_SendFlag;
         mmlib::CShmQueue m_ProxyQueue;
         mmlib::CShmQueue m_ConnQueue;
 };

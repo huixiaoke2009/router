@@ -94,7 +94,7 @@ int CApp::Init(const char *pConfFile)
     
     if (IniFile.IsValid())
     {
-        IniFile.GetInt("APP", "DstID", 0, &m_DstID);
+        IniFile.GetInt("APP", "SendFlag", 0, &m_SendFlag);
         IniFile.GetInt("APP", "ProxyShmKey", 0, &ProxyShmKey);
         IniFile.GetInt("APP", "ProxyShmSize", 0, &ProxyShmSize);
         IniFile.GetInt("APP", "ConnShmKey", 0, &ConnShmKey);
@@ -170,7 +170,7 @@ int CApp::Run()
     
     while(true)
     {
-        if(m_DstID == 101)
+        if(m_SendFlag == 1)
         {
             AppHeader CurHeader;
             int HeaderLen = sizeof(AppHeader);
@@ -178,10 +178,10 @@ int CApp::Run()
             RecvLen = XY_MAXBUFF_LEN - HeaderLen;
             
             app::MyData CurReq;
-            CurReq.set_data1(m_DstID);
-            CurReq.set_data2(CStrTool::Format("%d", m_DstID*10));
-            CurReq.mutable_data3()->set_kk(m_DstID*100);
-            CurReq.mutable_data3()->set_ss(CStrTool::Format("%d", m_DstID*1000));
+            CurReq.set_data1(m_SendFlag);
+            CurReq.set_data2(CStrTool::Format("%d", m_SendFlag*10));
+            CurReq.mutable_data3()->set_kk(m_SendFlag*100);
+            CurReq.mutable_data3()->set_ss(CStrTool::Format("%d", m_SendFlag*1000));
             if (!CurReq.SerializeToArray(pRecvBuff+HeaderLen, RecvLen))
             {
                 printf("SerializeToArray failed, %s\n", CurReq.ShortDebugString().c_str());
@@ -191,7 +191,7 @@ int CApp::Run()
             RecvLen = CurReq.ByteSize();
             CurHeader.UserID = 1048811;
             CurHeader.CmdID = 0x10010001;
-            CurHeader.DstID = 400;
+            CurHeader.DstID = 200;
             memcpy(pRecvBuff, &CurHeader, HeaderLen);
             
             m_ProxyQueue.InQueue(pRecvBuff, RecvLen+HeaderLen);

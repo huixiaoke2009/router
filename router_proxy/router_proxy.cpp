@@ -374,7 +374,7 @@ int CRouterProxy::Run()
         
         if(EmptyFlag)
         {
-            usleep(100);
+            usleep(1000);
         }
     }
 

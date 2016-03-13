@@ -851,6 +851,11 @@ int CRouter::Run()
 
         // 对连接进行检查扫描
         CheckConn();
+        
+        if(EmptyFlag)
+        {
+            usleep(1000);
+        }
     }
 
     return 0;

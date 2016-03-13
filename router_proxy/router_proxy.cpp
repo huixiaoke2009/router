@@ -456,6 +456,8 @@ int CRouterProxy::ConnectRouter(unsigned int RouterSvrID)
                 }
             }
             
+            XF_LOG_INFO(0 , 0, "ConnetRouter:%d", RouterSvrID);
+            
             struct epoll_event ev;
             ev.events = EPOLLIN | EPOLLERR | EPOLLHUP;
             ev.data.u32 = RouterSvrID;
@@ -491,6 +493,8 @@ int CRouterProxy::DisconnetRouter(unsigned int RouterSvrID)
                 close(m_RouterInfo[i].SocketID);
                 m_RouterInfo[i].SocketID = -1;
                 m_RouterInfo[i].strRecieveBuff.clear();
+                
+                XF_LOG_INFO(0 , 0, "DisconnetRouter:%d", RouterSvrID);
             }
             
             break;

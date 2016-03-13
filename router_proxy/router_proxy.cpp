@@ -194,11 +194,11 @@ int CRouterProxy::Init(const char *pConfFile)
     {
         char RouterIP[16] = {0};
         int RouterPort = 0;
-        int RouterSvrID = 0;
+        unsigned int RouterSvrID = 0;
         
         IniFile.GetString("PROXY", CStrTool::Format("RouterIP_%d", i).c_str(), "", RouterIP, sizeof(RouterIP));
         IniFile.GetInt("PROXY", CStrTool::Format("RouterPort_%d", i).c_str(), 0, &RouterPort);
-        IniFile.GetInt("PROXY", CStrTool::Format("RouterSvrID_%d", i).c_str(), 0, &RouterSvrID);
+        IniFile.GetInt("PROXY", CStrTool::Format("RouterSvrID_%d", i).c_str(), 0, (int *)&RouterSvrID);
         
         m_RouterInfo[i].RouterIP = inet_addr(RouterIP);
         m_RouterInfo[i].RouterPort = RouterPort;
@@ -244,7 +244,7 @@ int CRouterProxy::Run()
             for(int i = 0; i < RetEventNum; ++i)
             {
                 XF_LOG_TRACE(0, 0, "epoll_wait return, event_num=%d, cur_event=%d, event=%d, conn_pos=%u", RetEventNum, i, RetEvent[i].events, RetEvent[i].data.u32);
-                int RouterSvrID = RetEvent[i].data.u32;
+                unsigned int RouterSvrID = RetEvent[i].data.u32;
                 if(RetEvent[i].events & EPOLLERR)
                 {
                     XF_LOG_WARN(0, 0, "EPOLL return EPOLLERR|%u", RouterSvrID);

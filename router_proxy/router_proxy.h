@@ -146,20 +146,20 @@ class CRouterProxy
         int GetServerID(){return m_ServerID;}
 
     private:
-        int ConnectRouter(unsigned int SvrID);
-        int DisconnetRouter(unsigned int SvrID);
+        int ConnectRouter(unsigned int RouterSvrID);
+        int DisconnetRouter(unsigned int RouterSvrID);
         void CheckConnect();
         
-        int Send(unsigned int SvrID, const char *pSendBuff, int SendBuffLen);
-        int Recv(unsigned int SvrID, char* pRecvBuff, unsigned int* pLen);
-        int AddRecvData(unsigned int SvrID, const char *pBuff, unsigned int Len);
+        int Send(unsigned int RouterSvrID, const char *pSendBuff, int SendBuffLen);
+        int Recv(unsigned int RouterSvrID, char* pRecvBuff, unsigned int* pLen);
+        int AddRecvData(unsigned int RouterSvrID, const char *pBuff, unsigned int Len);
         
-        int Forward2Router(char *pSendBuff, int SendBuffLen, int SvrID = 0);
-        int Send2RouterByMsg(unsigned int SvrID, unsigned int CmdID, const google::protobuf::Message &Rsp);
-        int SendHeartbeatMsg(unsigned int SvrID);
-        int SendRegisterMsg(unsigned int SvrID);
+        int Forward2Router(char *pSendBuff, int SendBuffLen, int RouterSvrID = 0);
+        int Send2RouterByMsg(unsigned int RouterSvrID, unsigned int CmdID, const google::protobuf::Message &Rsp);
+        int SendHeartbeatMsg(unsigned int RouterSvrID);
+        int SendRegisterMsg(unsigned int RouterSvrID);
     
-        int ProcessPkg(unsigned int SvrID, const char* pCurBuffPos, int RecvLen);
+        int ProcessPkg(unsigned int RouterSvrID, const char* pCurBuffPos, int RecvLen);
     private:
         int m_EpollFD;
         int m_ServerID;

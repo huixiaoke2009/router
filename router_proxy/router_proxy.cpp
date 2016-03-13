@@ -244,43 +244,43 @@ int CRouterProxy::Run()
             for(int i = 0; i < RetEventNum; ++i)
             {
                 XF_LOG_TRACE(0, 0, "epoll_wait return, event_num=%d, cur_event=%d, event=%d, conn_pos=%u", RetEventNum, i, RetEvent[i].events, RetEvent[i].data.u32);
-                int SvrID = RetEvent[i].data.u32;
+                int RouterSvrID = RetEvent[i].data.u32;
                 if(RetEvent[i].events & EPOLLERR)
                 {
-                    XF_LOG_WARN(0, 0, "EPOLL return EPOLLERR|%u", SvrID);
-                    DisconnetRouter(SvrID);
+                    XF_LOG_WARN(0, 0, "EPOLL return EPOLLERR|%u", RouterSvrID);
+                    DisconnetRouter(RouterSvrID);
                     continue;
                 }
 
                 if(RetEvent[i].events & EPOLLHUP)
                 {
-                    XF_LOG_WARN(0, 0, "EPOLL return EPOLLHUP|%u", SvrID);
-                    DisconnetRouter(SvrID);
+                    XF_LOG_WARN(0, 0, "EPOLL return EPOLLHUP|%u", RouterSvrID);
+                    DisconnetRouter(RouterSvrID);
                     continue;
                 }
 
                 if(RetEvent[i].events & EPOLLIN)
                 {
                     RecvLen = XY_MAXBUFF_LEN;
-                    Ret = Recv(SvrID, pRecvBuff, (unsigned int*)&RecvLen);
+                    Ret = Recv(RouterSvrID, pRecvBuff, (unsigned int*)&RecvLen);
                     if(Ret == 1)
                     {
                         //连接被终止
-                        DisconnetRouter(SvrID);
+                        DisconnetRouter(RouterSvrID);
                         continue;
                     }
                     else if(Ret < 0)
                     {
                         //接收失败
-                        XF_LOG_WARN(0, 0, "%u|recv failed", SvrID);
-                        DisconnetRouter(SvrID);
+                        XF_LOG_WARN(0, 0, "%u|recv failed", RouterSvrID);
+                        DisconnetRouter(RouterSvrID);
                         continue;
                     }
                     
                     if (RecvLen > XY_MAXBUFF_LEN)
                     {
-                        XF_LOG_WARN(0, 0, "%u|%u|recv len is not valid", SvrID, RecvLen);
-                        DisconnetRouter(SvrID);
+                        XF_LOG_WARN(0, 0, "%u|%u|recv len is not valid", RouterSvrID, RecvLen);
+                        DisconnetRouter(RouterSvrID);
                         continue;
                     }
 
@@ -289,15 +289,15 @@ int CRouterProxy::Run()
                     char *pCurBuffPos = pRecvBuff;
                     while(RecvLen > 0)
                     {
-                        int ProcLen = ProcessPkg(SvrID, pCurBuffPos, RecvLen);
+                        int ProcLen = ProcessPkg(RouterSvrID, pCurBuffPos, RecvLen);
                         if ((ProcLen > RecvLen)||(ProcLen == 0))
                         {
                             //需要暂存数据
                             //ProcLen返回0表示根据现有的字段还不能计算长度
-                            if (AddRecvData(SvrID, pCurBuffPos, RecvLen) != 0)
+                            if (AddRecvData(RouterSvrID, pCurBuffPos, RecvLen) != 0)
                             {
-                                XF_LOG_WARN(0, 0, "%u|%u|store recv data failed", SvrID, RecvLen);
-                                DisconnetRouter(SvrID);
+                                XF_LOG_WARN(0, 0, "%u|%u|store recv data failed", RouterSvrID, RecvLen);
+                                DisconnetRouter(RouterSvrID);
                             }
                             
                             RecvLen = 0;
@@ -305,8 +305,8 @@ int CRouterProxy::Run()
                         else if (ProcLen <= -1)
                         {
                             //直接关闭连接
-                            XF_LOG_WARN(0, 0, "%u|%u|handle_input ret -1", SvrID, RecvLen);
-                            DisconnetRouter(SvrID);
+                            XF_LOG_WARN(0, 0, "%u|%u|handle_input ret -1", RouterSvrID, RecvLen);
+                            DisconnetRouter(RouterSvrID);
                             RecvLen = 0;
                         }
                         else
@@ -324,7 +324,7 @@ int CRouterProxy::Run()
 
                 if(RetEvent[i].events & EPOLLOUT)
                 {
-                    XF_LOG_WARN(0, 0, "can't not be here, %u", SvrID);
+                    XF_LOG_WARN(0, 0, "can't not be here, %u", RouterSvrID);
                     continue;
                 }
             }
@@ -381,11 +381,11 @@ int CRouterProxy::Run()
     return 0;
 }
 
-int CRouterProxy::ConnectRouter(unsigned int SvrID)
+int CRouterProxy::ConnectRouter(unsigned int RouterSvrID)
 {
     for(int i = 0; i < XY_MAX_ROUTER_NUM && i < m_RouterNum; i++)
     {
-        if(m_RouterInfo[i].RouterSvrID == SvrID)
+        if(m_RouterInfo[i].RouterSvrID == RouterSvrID)
         {
             if(m_RouterInfo[i].SocketID != -1)
             {
@@ -403,13 +403,13 @@ int CRouterProxy::ConnectRouter(unsigned int SvrID)
             int val = 0;
             if ((val = ::fcntl(SocketID, F_GETFL, 0)) < 0)
             {
-                XF_LOG_WARN(0, 0,"fcntl (GET) failed, svrid=%d|%d|%d|%d|%s", SvrID, m_RouterInfo[i].RouterIP, m_RouterInfo[i].RouterPort, errno, strerror(errno));
+                XF_LOG_WARN(0, 0,"fcntl (GET) failed, svrid=%d|%d|%d|%d|%s", RouterSvrID, m_RouterInfo[i].RouterIP, m_RouterInfo[i].RouterPort, errno, strerror(errno));
             }
 
             val |= O_NONBLOCK;
             if (::fcntl(SocketID, F_SETFL, val) < 0)
             {
-                XF_LOG_WARN(0, 0,"fcntl (SET) failed, svrid=%d|%d|%d|%d|%s", SvrID, m_RouterInfo[i].RouterIP, m_RouterInfo[i].RouterPort, errno, strerror(errno));
+                XF_LOG_WARN(0, 0,"fcntl (SET) failed, svrid=%d|%d|%d|%d|%s", RouterSvrID, m_RouterInfo[i].RouterIP, m_RouterInfo[i].RouterPort, errno, strerror(errno));
                 return -1;
             }
             
@@ -422,7 +422,7 @@ int CRouterProxy::ConnectRouter(unsigned int SvrID)
             {
                 if(errno != EINPROGRESS)
                 {
-                    XF_LOG_WARN(0, 0, "connect failed|%d", SvrID);
+                    XF_LOG_WARN(0, 0, "connect failed|%d", RouterSvrID);
                     return -1;
                 }
                 
@@ -443,7 +443,7 @@ int CRouterProxy::ConnectRouter(unsigned int SvrID)
                     if(error != 0)
                     {
                         close(SocketID);
-                        XF_LOG_WARN(0, 0,"connect faile|SvrID=%d|%d|%d|%d|%s", SvrID, m_RouterInfo[i].RouterIP, m_RouterInfo[i].RouterPort, errno, strerror(errno));
+                        XF_LOG_WARN(0, 0,"connect faile|srvid=%d|%d|%d|%d|%s", RouterSvrID, m_RouterInfo[i].RouterIP, m_RouterInfo[i].RouterPort, errno, strerror(errno));
                         return -1;
                     }
                 }
@@ -451,14 +451,14 @@ int CRouterProxy::ConnectRouter(unsigned int SvrID)
                 {
                     // 进入这个分支表示超时或者出错
                     close(SocketID);
-                    XF_LOG_WARN(0, 0, "select return error|%d", SvrID);
+                    XF_LOG_WARN(0, 0, "select return error|%d", RouterSvrID);
                     return -1;
                 }
             }
             
             struct epoll_event ev;
             ev.events = EPOLLIN | EPOLLERR | EPOLLHUP;
-            ev.data.u32 = SvrID;
+            ev.data.u32 = RouterSvrID;
 
             if(epoll_ctl(m_EpollFD, EPOLL_CTL_ADD, SocketID, &ev) != 0)
             {
@@ -469,7 +469,7 @@ int CRouterProxy::ConnectRouter(unsigned int SvrID)
             
             m_RouterInfo[i].SocketID = SocketID;
             
-            SendRegisterMsg(SvrID);
+            SendRegisterMsg(RouterSvrID);
 
             break;
         }
@@ -479,11 +479,11 @@ int CRouterProxy::ConnectRouter(unsigned int SvrID)
 }
 
 
-int CRouterProxy::DisconnetRouter(unsigned int SvrID)
+int CRouterProxy::DisconnetRouter(unsigned int RouterSvrID)
 {
     for(int i = 0; i < XY_MAX_ROUTER_NUM && i < m_RouterNum; i++)
     {
-        if(m_RouterInfo[i].RouterSvrID == SvrID)
+        if(m_RouterInfo[i].RouterSvrID == RouterSvrID)
         {
             if(m_RouterInfo[i].SocketID != -1)
             {
@@ -516,11 +516,11 @@ void CRouterProxy::CheckConnect()
 }
 
 
-int CRouterProxy::Send(unsigned int SvrID, const char *pSendBuff, int SendBuffLen)
+int CRouterProxy::Send(unsigned int RouterSvrID, const char *pSendBuff, int SendBuffLen)
 {
     for(int i = 0; i < m_RouterNum && i < XY_MAX_ROUTER_NUM; i++)
     {
-        if(m_RouterInfo[i].RouterSvrID == SvrID)
+        if(m_RouterInfo[i].RouterSvrID == RouterSvrID)
         {
             int SocketID =  m_RouterInfo[i].SocketID;
             int BytesSent = 0;
@@ -550,7 +550,7 @@ int CRouterProxy::Send(unsigned int SvrID, const char *pSendBuff, int SendBuffLe
                 }
                 else
                 {
-                    DisconnetRouter(SvrID);
+                    DisconnetRouter(RouterSvrID);
                     XF_LOG_WARN(0, 0,"Send WriteBytes=%d|errno=%d|error: %s", WriteBytes, errno, strerror(errno));
                     return -1;
                 }
@@ -563,11 +563,11 @@ int CRouterProxy::Send(unsigned int SvrID, const char *pSendBuff, int SendBuffLe
     return -1;
 }
 
-int CRouterProxy::Recv(unsigned int SvrID, char* pRecvBuff, unsigned int* pLen)
+int CRouterProxy::Recv(unsigned int RouterSvrID, char* pRecvBuff, unsigned int* pLen)
 {
     for(int i = 0; i < m_RouterNum && i < XY_MAX_ROUTER_NUM; i++)
     {
-        if(m_RouterInfo[i].RouterSvrID == SvrID)
+        if(m_RouterInfo[i].RouterSvrID == RouterSvrID)
         {
             return m_RouterInfo[i].Recv(pRecvBuff, pLen);
         }
@@ -576,11 +576,11 @@ int CRouterProxy::Recv(unsigned int SvrID, char* pRecvBuff, unsigned int* pLen)
     return 0;
 }
 
-int CRouterProxy::AddRecvData(unsigned int SvrID, const char *pBuff, unsigned int Len)
+int CRouterProxy::AddRecvData(unsigned int RouterSvrID, const char *pBuff, unsigned int Len)
 {
     for(int i = 0; i < m_RouterNum && i < XY_MAX_ROUTER_NUM; i++)
     {
-        if(m_RouterInfo[i].RouterSvrID == SvrID)
+        if(m_RouterInfo[i].RouterSvrID == RouterSvrID)
         {
             return m_RouterInfo[i].AddRecvData(pBuff, Len);
         }
@@ -589,7 +589,7 @@ int CRouterProxy::AddRecvData(unsigned int SvrID, const char *pBuff, unsigned in
     return 0;
 }
 
-int CRouterProxy::Forward2Router(char *pSendBuff, int SendBuffLen, int SvrID /*= 0*/)
+int CRouterProxy::Forward2Router(char *pSendBuff, int SendBuffLen, int RouterSvrID /*= 0*/)
 {
     char aszsSendBuff[10240] = {0};
     int SendLen = sizeof(aszsSendBuff);
@@ -619,7 +619,7 @@ int CRouterProxy::Forward2Router(char *pSendBuff, int SendBuffLen, int SvrID /*=
     CurHeader.Write(pBuff);
     memcpy(pBuff+HeaderLen, pSendBuff, SendBuffLen);
     
-    if(SvrID == 0)
+    if(RouterSvrID == 0)
     {
         vector<int> vctResult;
         for(int i = 0; i < m_RouterNum && i < XY_MAX_ROUTER_NUM; i++)
@@ -636,10 +636,10 @@ int CRouterProxy::Forward2Router(char *pSendBuff, int SendBuffLen, int SvrID /*=
             return -1;
         }
     
-        SvrID = vctResult[time(NULL)%vctResult.size()];
+        RouterSvrID = vctResult[time(NULL)%vctResult.size()];
     }
     
-    int Ret = Send(SvrID, pBuff, SendBuffLen+HeaderLen);
+    int Ret = Send(RouterSvrID, pBuff, SendBuffLen+HeaderLen);
     if(pBuff != aszsSendBuff)
     {
         free(pBuff);
@@ -649,7 +649,7 @@ int CRouterProxy::Forward2Router(char *pSendBuff, int SendBuffLen, int SvrID /*=
 }
 
 
-int CRouterProxy::Send2RouterByMsg(unsigned int SvrID, unsigned int CmdID, const google::protobuf::Message &Rsp)
+int CRouterProxy::Send2RouterByMsg(unsigned int RouterSvrID, unsigned int CmdID, const google::protobuf::Message &Rsp)
 {
     RouterHeader CurHeader;
     int HeaderLen = CurHeader.GetHeaderLen();
@@ -665,32 +665,32 @@ int CRouterProxy::Send2RouterByMsg(unsigned int SvrID, unsigned int CmdID, const
     CurHeader.PkgLen = HeaderLen + Rsp.ByteSize();
     CurHeader.UserID = 0;
     CurHeader.CmdID = CmdID;
-    CurHeader.DstID = SvrID;
+    CurHeader.DstID = RouterSvrID;
     CurHeader.SrcID = m_ServerID;
     CurHeader.SN = 0;
     CurHeader.Ret = 0;
     CurHeader.Write(acSendBuff);
     
-    return Send(SvrID, acSendBuff, HeaderLen + Rsp.ByteSize());
+    return Send(RouterSvrID, acSendBuff, HeaderLen + Rsp.ByteSize());
 }
 
 
-int CRouterProxy::SendHeartbeatMsg(unsigned int SvrID)
+int CRouterProxy::SendHeartbeatMsg(unsigned int RouterSvrID)
 {
     router::HeartbeatReq CurReq;
     CurReq.set_svrid(m_ServerID);
-    return Send2RouterByMsg(SvrID, Cmd_Heartbeat, CurReq);
+    return Send2RouterByMsg(RouterSvrID, Cmd_Heartbeat, CurReq);
 }
 
 
-int CRouterProxy::SendRegisterMsg(unsigned int SvrID)
+int CRouterProxy::SendRegisterMsg(unsigned int RouterSvrID)
 {
     router::RegisterSvrReq CurReq;
     CurReq.set_svrid(m_ServerID);
-    return Send2RouterByMsg(SvrID, Cmd_RegisterSvr, CurReq);
+    return Send2RouterByMsg(RouterSvrID, Cmd_RegisterSvr, CurReq);
 }
 
-int CRouterProxy::ProcessPkg(unsigned int SvrID, const char* pCurBuffPos, int RecvLen)
+int CRouterProxy::ProcessPkg(unsigned int RouterSvrID, const char* pCurBuffPos, int RecvLen)
 {
     int Ret = 0; 
     
@@ -737,11 +737,11 @@ int CRouterProxy::ProcessPkg(unsigned int SvrID, const char* pCurBuffPos, int Re
         int ret = CurRegisterSvrRsp.ret();
         if(ret != 0)
         {
-            XF_LOG_WARN(0, 0, "RegisterSvr failed, %u|%d", SvrID, ret);
+            XF_LOG_WARN(0, 0, "RegisterSvr failed, %u|%d", RouterSvrID, ret);
             return -1;
         }
         
-        XF_LOG_INFO(0, 0, "RegisterSvr success, %u", SvrID);
+        XF_LOG_INFO(0, 0, "RegisterSvr success, %u", RouterSvrID);
 
         return PkgLen;
     }

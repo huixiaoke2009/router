@@ -681,6 +681,7 @@ int CRouterProxy::Send2RouterByMsg(unsigned int RouterSvrID, unsigned int CmdID,
 
 int CRouterProxy::SendHeartbeatMsg(unsigned int RouterSvrID)
 {
+    XF_LOG_TRACE(0, 0, "SendHeartbeatMsg to RouterSvrID:%d", RouterSvrID);
     router::HeartbeatReq CurReq;
     CurReq.set_svrid(m_ServerID);
     return Send2RouterByMsg(RouterSvrID, Cmd_Heartbeat, CurReq);
@@ -689,6 +690,7 @@ int CRouterProxy::SendHeartbeatMsg(unsigned int RouterSvrID)
 
 int CRouterProxy::SendRegisterMsg(unsigned int RouterSvrID)
 {
+    XF_LOG_TRACE(0, 0, "SendRegisterMsg to RouterSvrID:%d", RouterSvrID);
     router::RegisterSvrReq CurReq;
     CurReq.set_svrid(m_ServerID);
     return Send2RouterByMsg(RouterSvrID, Cmd_RegisterSvr, CurReq);

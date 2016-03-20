@@ -595,7 +595,7 @@ int CRouterProxy::AddRecvData(unsigned int RouterSvrID, const char *pBuff, unsig
 
 int CRouterProxy::Forward2Router(char *pSendBuff, int SendBuffLen, int RouterSvrID /*= 0*/)
 {
-    char aszsSendBuff[10240] = {0};
+    char aszsSendBuff[XY_PKG_MAX_LEN] = {0};
     int SendLen = sizeof(aszsSendBuff);
     char* pBuff = aszsSendBuff;
     if(SendLen < SendBuffLen)
@@ -657,7 +657,7 @@ int CRouterProxy::Send2RouterByMsg(unsigned int RouterSvrID, unsigned int CmdID,
 {
     RouterHeader CurHeader;
     int HeaderLen = CurHeader.GetHeaderLen();
-    char acSendBuff[10240] = {0};
+    char acSendBuff[XY_PKG_MAX_LEN] = {0};
     int BufLen = sizeof(acSendBuff) - HeaderLen;
     char *pSendData = acSendBuff + HeaderLen;
     if (!Rsp.SerializeToArray(pSendData, BufLen))

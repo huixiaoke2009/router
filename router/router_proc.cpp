@@ -1359,7 +1359,7 @@ int CRouter::Send2ProxyByMsg(std::map<unsigned int, CConnInfo*>::iterator &pConn
 {
     RouterHeader CurHeader;
     int HeaderLen = CurHeader.GetHeaderLen();
-    char acSendBuff[10240] = {0};
+    char acSendBuff[XY_PKG_MAX_LEN] = {0};
     int BufLen = sizeof(acSendBuff) - HeaderLen;
     char *pSendData = acSendBuff + HeaderLen;
     if (!Rsp.SerializeToArray(pSendData, BufLen))

@@ -183,10 +183,10 @@ int CRouterProxy::Init(const char *pConfFile)
     }
 
     //创建EPOLL
-    m_EpollFD = epoll_create(XY_MAX_ROUTER_NUM);
+    m_EpollFD = epoll_create(XY_MAX_CONN_NUM);
     if (m_EpollFD == -1)
     {
-        printf("ERR:epoll create failed|%d|%d|%s\n", XY_MAX_ROUTER_NUM, errno, strerror(errno));
+        printf("ERR:epoll create failed|%d|%d|%s\n", XY_MAX_CONN_NUM, errno, strerror(errno));
         return -1;
     }
     
@@ -536,7 +536,7 @@ int CRouterProxy::Send(unsigned int RouterSvrID, const char *pSendBuff, int Send
                 {
                     BytesSent += WriteBytes;
                     
-                    XF_LOG_DEBUG(0, 0, "Send SendBuffLen=%u|WriteBytes=%u|BytesSent=%d", SendBuffLen, WriteBytes, BytesSent);
+                    XF_LOG_DEBUG(0, 0, "Send to RouterSvrID:%d SendBuffLen=%u|WriteBytes=%u|BytesSent=%d", RouterSvrID, SendBuffLen, WriteBytes, BytesSent);
                     if (BytesSent < SendBuffLen)
                     {
                         continue;
@@ -548,14 +548,14 @@ int CRouterProxy::Send(unsigned int RouterSvrID, const char *pSendBuff, int Send
                 }
                 else if (errno == EINTR || errno == EAGAIN)
                 {
-                    XF_LOG_WARN(0, 0,"Send WriteBytes=%d|errno=%d|error: %s", WriteBytes, errno, strerror(errno));
+                    XF_LOG_WARN(0, 0,"Send to RouterSvrID:%d WriteBytes=%d|errno=%d|error: %s", RouterSvrID, WriteBytes, errno, strerror(errno));
                     usleep(10);
                     continue;
                 }
                 else
                 {
                     DisconnetRouter(RouterSvrID);
-                    XF_LOG_WARN(0, 0,"Send WriteBytes=%d|errno=%d|error: %s", WriteBytes, errno, strerror(errno));
+                    XF_LOG_WARN(0, 0,"Send to RouterSvrID:%d WriteBytes=%d|errno=%d|error: %s", RouterSvrID, WriteBytes, errno, strerror(errno));
                     return -1;
                 }
             }

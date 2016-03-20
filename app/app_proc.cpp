@@ -178,10 +178,10 @@ int CApp::Run()
             RecvLen = XY_MAXBUFF_LEN - HeaderLen;
             
             app::MyData CurReq;
-            CurReq.set_data1(m_SendFlag);
-            CurReq.set_data2(CStrTool::Format("%d", m_SendFlag*10));
-            CurReq.mutable_data3()->set_kk(m_SendFlag*100);
-            CurReq.mutable_data3()->set_ss(CStrTool::Format("%d", m_SendFlag*1000));
+            CurReq.set_data1(CRandomTool::Get(0, 100));
+            CurReq.set_data2(CStrTool::Format("%d", CRandomTool::Get(0, 100)));
+            CurReq.mutable_data3()->set_kk(CRandomTool::Get(0, 100));
+            CurReq.mutable_data3()->set_ss(CStrTool::Format("%d", CRandomTool::Get(0, 100)));
             if (!CurReq.SerializeToArray(pRecvBuff+HeaderLen, RecvLen))
             {
                 printf("SerializeToArray failed, %s\n", CurReq.ShortDebugString().c_str());

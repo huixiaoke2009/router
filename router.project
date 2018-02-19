@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeLite_Project Name="router" Version="10.0.0" InternalType="Console">
+  <VirtualDirectory Name="mmlib">
+    <File Name="mmlib/makefile"/>
+    <VirtualDirectory Name="ini_file">
+      <File Name="mmlib/ini_file/ini_file.cpp"/>
+      <File Name="mmlib/ini_file/ini_file.h"/>
+    </VirtualDirectory>
+    <VirtualDirectory Name="hash_list">
+      <File Name="mmlib/hash_list/hash_list.h"/>
+      <File Name="mmlib/hash_list/hash_list_nolock.h"/>
+      <File Name="mmlib/hash_list/hash_list_mmap.h"/>
+    </VirtualDirectory>
+    <VirtualDirectory Name="file_lock">
+      <File Name="mmlib/file_lock/file_lock.cpp"/>
+      <File Name="mmlib/file_lock/file_lock.h"/>
+    </VirtualDirectory>
+    <VirtualDirectory Name="safe_tcp_client">
+      <File Name="mmlib/safe_tcp_client/safe_tcp_client.h"/>
+      <File Name="mmlib/safe_tcp_client/safe_tcp_client.cpp"/>
+    </VirtualDirectory>
+    <VirtualDirectory Name="shm_queue">
+      <File Name="mmlib/shm_queue/shm_queue.cpp"/>
+      <File Name="mmlib/shm_queue/shm_uniq_queue.cpp"/>
+      <File Name="mmlib/shm_queue/shm_queue.h"/>
+      <File Name="mmlib/shm_queue/shm_uniq_queue.h"/>
+    </VirtualDirectory>
+    <VirtualDirectory Name="share_mem">
+      <File Name="mmlib/share_mem/share_mem.h"/>
+      <File Name="mmlib/share_mem/share_mem.cpp"/>
+    </VirtualDirectory>
+    <VirtualDirectory Name="process_manager">
+      <File Name="mmlib/process_manager/process_manager.cpp"/>
+      <File Name="mmlib/process_manager/process_manager.h"/>
+    </VirtualDirectory>
+    <VirtualDirectory Name="log">
+      <File Name="mmlib/log/log.h"/>
+      <File Name="mmlib/log/log.cpp"/>
+    </VirtualDirectory>
+    <VirtualDirectory Name="quicklz">
+      <File Name="mmlib/quicklz/quicklz.c"/>
+      <File Name="mmlib/quicklz/readme"/>
+      <File Name="mmlib/quicklz/quicklz.h"/>
+    </VirtualDirectory>
+    <VirtualDirectory Name="udp_client">
+      <File Name="mmlib/udp_client/udp_client.cpp"/>
+      <File Name="mmlib/udp_client/udp_client.h"/>
+    </VirtualDirectory>
+    <VirtualDirectory Name="mysql">
+      <File Name="mmlib/mysql/mysql_wrap.h"/>
+      <File Name="mmlib/mysql/mysql_wrap.cpp"/>
+    </VirtualDirectory>
+    <VirtualDirectory Name="mmap_queue">
+      <File Name="mmlib/mmap_queue/mmap_queue.h"/>
+      <File Name="mmlib/mmap_queue/mmap_queue.cpp"/>
+    </VirtualDirectory>
+    <VirtualDirectory Name="simple_uuid64">
+      <File Name="mmlib/simple_uuid64/simple_uuid64.h"/>
+      <File Name="mmlib/simple_uuid64/simple_uuid64.cpp"/>
+    </VirtualDirectory>
+    <VirtualDirectory Name="sem_lock">
+      <File Name="mmlib/sem_lock/sem_lock.cpp"/>
+      <File Name="mmlib/sem_lock/sem_lock.h"/>
+      <File Name="mmlib/sem_lock/sem_lock_pro.cpp"/>
+      <File Name="mmlib/sem_lock/sem_lock_pro.h"/>
+    </VirtualDirectory>
+    <VirtualDirectory Name="timer_pool">
+      <File Name="mmlib/timer_pool/timer_pool.h"/>
+    </VirtualDirectory>
+    <VirtualDirectory Name="gzip">
+      <File Name="mmlib/gzip/gzip.cpp"/>
+      <File Name="mmlib/gzip/gzip.h"/>
+    </VirtualDirectory>
+    <VirtualDirectory Name="base64">
+      <File Name="mmlib/base64/base64.cpp"/>
+      <File Name="mmlib/base64/base64.h"/>
+    </VirtualDirectory>
+    <VirtualDirectory Name="mem_pool">
+      <File Name="mmlib/mem_pool/mem_pool.h"/>
+      <File Name="mmlib/mem_pool/fixedsize_mem_pool.h"/>
+    </VirtualDirectory>
+    <VirtualDirectory Name="mmap_file">
+      <File Name="mmlib/mmap_file/mmap_file.cpp"/>
+      <File Name="mmlib/mmap_file/mmap_file.h"/>
+    </VirtualDirectory>
+    <VirtualDirectory Name="util">
+      <File Name="mmlib/util/util.h"/>
+      <File Name="mmlib/util/util.cpp"/>
+    </VirtualDirectory>
+    <VirtualDirectory Name="tcp_client">
+      <File Name="mmlib/tcp_client/tcp_client.h"/>
+      <File Name="mmlib/tcp_client/tcp_client.cpp"/>
+    </VirtualDirectory>
+    <VirtualDirectory Name="amf">
+      <File Name="mmlib/amf/variant.h"/>
+      <File Name="mmlib/amf/amf3serializer.h"/>
+      <File Name="mmlib/amf/iobuffer.h"/>
+      <File Name="mmlib/amf/amf3serializer.cpp"/>
+      <File Name="mmlib/amf/amftypes.h"/>
+      <File Name="mmlib/amf/variant.cpp"/>
+      <File Name="mmlib/amf/common.h"/>
+      <File Name="mmlib/amf/amflog.cpp"/>
+      <File Name="mmlib/amf/amf0serializer.cpp"/>
+      <File Name="mmlib/amf/amf0serializer.h"/>
+      <File Name="mmlib/amf/amflog.h"/>
+      <File Name="mmlib/amf/variantmap.h"/>
+      <File Name="mmlib/amf/iobuffer.cpp"/>
+      <File Name="mmlib/amf/common.cpp"/>
+    </VirtualDirectory>
+    <VirtualDirectory Name="md5">
+      <File Name="mmlib/md5/md5.h"/>
+      <File Name="mmlib/md5/md5.cpp"/>
+    </VirtualDirectory>
+  </VirtualDirectory>
+  <VirtualDirectory Name="include">
+    <File Name="include/cmd.h"/>
+    <File Name="include/common.h"/>
+    <File Name="include/makefile"/>
+    <File Name="include/router_header.h"/>
+  </VirtualDirectory>
+  <VirtualDirectory Name="logsvr">
+    <File Name="logsvr/logsvr_main.cpp"/>
+    <File Name="logsvr/makefile"/>
+    <File Name="logsvr/logsvr_proc.h"/>
+    <File Name="logsvr/logsvr_proc.cpp"/>
+  </VirtualDirectory>
+  <VirtualDirectory Name="app">
+    <File Name="app/app_main.cpp"/>
+    <File Name="app/app_proc.h"/>
+    <File Name="app/app_proc.cpp"/>
+    <File Name="app/makefile"/>
+  </VirtualDirectory>
+  <VirtualDirectory Name="router_proxy">
+    <File Name="router_proxy/router_proxy.cpp"/>
+    <File Name="router_proxy/router_proxy.h"/>
+    <File Name="router_proxy/router_proxy_main.cpp"/>
+    <File Name="router_proxy/makefile"/>
+  </VirtualDirectory>
+  <VirtualDirectory Name="router">
+    <File Name="makefile"/>
+    <File Name="router/router_main.cpp"/>
+    <File Name="router/router_proc.cpp"/>
+    <File Name="router/makefile"/>
+    <File Name="router/router_proc.h"/>
+  </VirtualDirectory>
+  <Description/>
+  <Dependencies/>
+  <Settings Type="Executable">
+    <GlobalSettings>
+      <Compiler Options="" C_Options="" Assembler="">
+        <IncludePath Value="."/>
+      </Compiler>
+      <Linker Options="">
+        <LibraryPath Value="."/>
+      </Linker>
+      <ResourceCompiler Options=""/>
+    </GlobalSettings>
+    <Configuration Name="Debug" CompilerType="GCC" DebuggerType="GNU gdb debugger" Type="Executable" BuildCmpWithGlobalSettings="append" BuildLnkWithGlobalSettings="append" BuildResWithGlobalSettings="append">
+      <Compiler Options="-g;-O0;-Wall" C_Options="-g;-O0;-Wall" Assembler="" Required="yes" PreCompiledHeader="" PCHInCommandLine="no" PCHFlags="" PCHFlagsPolicy="0">
+        <IncludePath Value="."/>
+      </Compiler>
+      <Linker Options="" Required="yes"/>
+      <ResourceCompiler Options="" Required="no"/>
+      <General OutputFile="$(IntermediateDirectory)/$(ProjectName)" IntermediateDirectory="./Debug" Command="./$(ProjectName)" CommandArguments="" UseSeparateDebugArgs="no" DebugArguments="" WorkingDirectory="$(IntermediateDirectory)" PauseExecWhenProcTerminates="yes" IsGUIProgram="no" IsEnabled="yes"/>
+      <BuildSystem Name="GNU makefile onestep build"/>
+      <Environment EnvVarSetName="&lt;Use Defaults&gt;" DbgSetName="&lt;Use Defaults&gt;">
+        <![CDATA[]]>
+      </Environment>
+      <Debugger IsRemote="no" RemoteHostName="" RemoteHostPort="" DebuggerPath="" IsExtended="yes">
+        <DebuggerSearchPaths/>
+        <PostConnectCommands/>
+        <StartupCommands/>
+      </Debugger>
+      <PreBuild/>
+      <PostBuild/>
+      <CustomBuild Enabled="no">
+        <RebuildCommand/>
+        <CleanCommand/>
+        <BuildCommand/>
+        <PreprocessFileCommand/>
+        <SingleFileCommand/>
+        <MakefileGenerationCommand/>
+        <ThirdPartyToolName>None</ThirdPartyToolName>
+        <WorkingDirectory/>
+      </CustomBuild>
+      <AdditionalRules>
+        <CustomPostBuild/>
+        <CustomPreBuild/>
+      </AdditionalRules>
+      <Completion EnableCpp11="no" EnableCpp14="no">
+        <ClangCmpFlagsC/>
+        <ClangCmpFlags/>
+        <ClangPP/>
+        <SearchPaths/>
+      </Completion>
+    </Configuration>
+    <Configuration Name="Release" CompilerType="GCC" DebuggerType="GNU gdb debugger" Type="Executable" BuildCmpWithGlobalSettings="append" BuildLnkWithGlobalSettings="append" BuildResWithGlobalSettings="append">
+      <Compiler Options="-O2;-Wall" C_Options="-O2;-Wall" Assembler="" Required="yes" PreCompiledHeader="" PCHInCommandLine="no" PCHFlags="" PCHFlagsPolicy="0">
+        <IncludePath Value="."/>
+        <Preprocessor Value="NDEBUG"/>
+      </Compiler>
+      <Linker Options="" Required="yes"/>
+      <ResourceCompiler Options="" Required="no"/>
+      <General OutputFile="$(IntermediateDirectory)/$(ProjectName)" IntermediateDirectory="./Release" Command="./$(ProjectName)" CommandArguments="" UseSeparateDebugArgs="no" DebugArguments="" WorkingDirectory="$(IntermediateDirectory)" PauseExecWhenProcTerminates="yes" IsGUIProgram="no" IsEnabled="yes"/>
+      <BuildSystem Name="GNU makefile onestep build"/>
+      <Environment EnvVarSetName="&lt;Use Defaults&gt;" DbgSetName="&lt;Use Defaults&gt;">
+        <![CDATA[]]>
+      </Environment>
+      <Debugger IsRemote="no" RemoteHostName="" RemoteHostPort="" DebuggerPath="" IsExtended="no">
+        <DebuggerSearchPaths/>
+        <PostConnectCommands/>
+        <StartupCommands/>
+      </Debugger>
+      <PreBuild/>
+      <PostBuild/>
+      <CustomBuild Enabled="no">
+        <RebuildCommand/>
+        <CleanCommand/>
+        <BuildCommand/>
+        <PreprocessFileCommand/>
+        <SingleFileCommand/>
+        <MakefileGenerationCommand/>
+        <ThirdPartyToolName>None</ThirdPartyToolName>
+        <WorkingDirectory/>
+      </CustomBuild>
+      <AdditionalRules>
+        <CustomPostBuild/>
+        <CustomPreBuild/>
+      </AdditionalRules>
+      <Completion EnableCpp11="no" EnableCpp14="no">
+        <ClangCmpFlagsC/>
+        <ClangCmpFlags/>
+        <ClangPP/>
+        <SearchPaths/>
+      </Completion>
+    </Configuration>
+  </Settings>
+</CodeLite_Project>

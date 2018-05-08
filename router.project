@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<CodeLite_Project Name="router" Version="10.0.0" InternalType="Console">
+<CodeLite_Project Name="router" Version="10.0.0" InternalType="">
   <VirtualDirectory Name="mmlib">
     <File Name="mmlib/makefile"/>
     <VirtualDirectory Name="ini_file">
@@ -123,6 +123,9 @@
     <File Name="logsvr/makefile"/>
     <File Name="logsvr/logsvr_proc.h"/>
     <File Name="logsvr/logsvr_proc.cpp"/>
+    <VirtualDirectory Name="script">
+      <File Name="logsvr/script/logsvr.sh"/>
+    </VirtualDirectory>
   </VirtualDirectory>
   <VirtualDirectory Name="app">
     <File Name="app/app_main.cpp"/>
@@ -156,54 +159,17 @@
       <ResourceCompiler Options=""/>
     </GlobalSettings>
     <Configuration Name="Debug" CompilerType="GCC" DebuggerType="GNU gdb debugger" Type="Executable" BuildCmpWithGlobalSettings="append" BuildLnkWithGlobalSettings="append" BuildResWithGlobalSettings="append">
-      <Compiler Options="-g;-O0;-Wall" C_Options="-g;-O0;-Wall" Assembler="" Required="yes" PreCompiledHeader="" PCHInCommandLine="no" PCHFlags="" PCHFlagsPolicy="0">
+      <Compiler Options="-g -Wall" C_Options="" Assembler="" Required="yes" PreCompiledHeader="" PCHInCommandLine="no" PCHFlags="" PCHFlagsPolicy="0">
         <IncludePath Value="."/>
       </Compiler>
-      <Linker Options="" Required="yes"/>
+      <Linker Options="-O0" Required="yes">
+        <LibraryPath Value="."/>
+        <LibraryPath Value="Debug"/>
+      </Linker>
       <ResourceCompiler Options="" Required="no"/>
-      <General OutputFile="$(IntermediateDirectory)/$(ProjectName)" IntermediateDirectory="./Debug" Command="./$(ProjectName)" CommandArguments="" UseSeparateDebugArgs="no" DebugArguments="" WorkingDirectory="$(IntermediateDirectory)" PauseExecWhenProcTerminates="yes" IsGUIProgram="no" IsEnabled="yes"/>
+      <General OutputFile="$(IntermediateDirectory)/$(ProjectName)" IntermediateDirectory="./Debug" Command="./$(ProjectName)" CommandArguments="" UseSeparateDebugArgs="no" DebugArguments="" WorkingDirectory="./Debug" PauseExecWhenProcTerminates="yes" IsGUIProgram="no" IsEnabled="yes"/>
       <BuildSystem Name="GNU makefile onestep build"/>
-      <Environment EnvVarSetName="&lt;Use Defaults&gt;" DbgSetName="&lt;Use Defaults&gt;">
-        <![CDATA[]]>
-      </Environment>
-      <Debugger IsRemote="no" RemoteHostName="" RemoteHostPort="" DebuggerPath="" IsExtended="yes">
-        <DebuggerSearchPaths/>
-        <PostConnectCommands/>
-        <StartupCommands/>
-      </Debugger>
-      <PreBuild/>
-      <PostBuild/>
-      <CustomBuild Enabled="no">
-        <RebuildCommand/>
-        <CleanCommand/>
-        <BuildCommand/>
-        <PreprocessFileCommand/>
-        <SingleFileCommand/>
-        <MakefileGenerationCommand/>
-        <ThirdPartyToolName>None</ThirdPartyToolName>
-        <WorkingDirectory/>
-      </CustomBuild>
-      <AdditionalRules>
-        <CustomPostBuild/>
-        <CustomPreBuild/>
-      </AdditionalRules>
-      <Completion EnableCpp11="no" EnableCpp14="no">
-        <ClangCmpFlagsC/>
-        <ClangCmpFlags/>
-        <ClangPP/>
-        <SearchPaths/>
-      </Completion>
-    </Configuration>
-    <Configuration Name="Release" CompilerType="GCC" DebuggerType="GNU gdb debugger" Type="Executable" BuildCmpWithGlobalSettings="append" BuildLnkWithGlobalSettings="append" BuildResWithGlobalSettings="append">
-      <Compiler Options="-O2;-Wall" C_Options="-O2;-Wall" Assembler="" Required="yes" PreCompiledHeader="" PCHInCommandLine="no" PCHFlags="" PCHFlagsPolicy="0">
-        <IncludePath Value="."/>
-        <Preprocessor Value="NDEBUG"/>
-      </Compiler>
-      <Linker Options="" Required="yes"/>
-      <ResourceCompiler Options="" Required="no"/>
-      <General OutputFile="$(IntermediateDirectory)/$(ProjectName)" IntermediateDirectory="./Release" Command="./$(ProjectName)" CommandArguments="" UseSeparateDebugArgs="no" DebugArguments="" WorkingDirectory="$(IntermediateDirectory)" PauseExecWhenProcTerminates="yes" IsGUIProgram="no" IsEnabled="yes"/>
-      <BuildSystem Name="GNU makefile onestep build"/>
-      <Environment EnvVarSetName="&lt;Use Defaults&gt;" DbgSetName="&lt;Use Defaults&gt;">
+      <Environment EnvVarSetName="&lt;Use Workspace Settings&gt;" DbgSetName="&lt;Use Global Settings&gt;">
         <![CDATA[]]>
       </Environment>
       <Debugger IsRemote="no" RemoteHostName="" RemoteHostPort="" DebuggerPath="" IsExtended="no">
@@ -220,7 +186,7 @@
         <PreprocessFileCommand/>
         <SingleFileCommand/>
         <MakefileGenerationCommand/>
-        <ThirdPartyToolName>None</ThirdPartyToolName>
+        <ThirdPartyToolName/>
         <WorkingDirectory/>
       </CustomBuild>
       <AdditionalRules>
